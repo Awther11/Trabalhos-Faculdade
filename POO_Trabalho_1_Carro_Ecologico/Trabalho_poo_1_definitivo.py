@@ -119,7 +119,7 @@ class Carro:
 
 
     
-    def ligar_ar_condicionado(self):                               # implemento 1 xD
+    def ligar_ar_condicionado(self):                             
         if not self.ar_condicionado:
             self.ar_condicionado = True
             print('O Ar-condicionado foi ligado')
@@ -137,7 +137,7 @@ class Carro:
 
 
 
-    def tocar_musica(self):                                         # implemento 2
+    def tocar_musica(self):                                        
         if not self.ligado:
             print('É preciso que o carro esteja ligado para tocar música!')
             return
