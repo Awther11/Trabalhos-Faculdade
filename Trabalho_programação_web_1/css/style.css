@@ -1,0 +1,286 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-dark: #051F20;
+    --primary-medium-dark: #0B2B26;
+    --primary-medium: #163832;
+    --primary-light: #235347;
+    --accent-green: #8EB69B;
+    --accent-light: #DAFIDE;
+    --text-light: #DAFIDE;
+    --text-medium: #8EB69B;
+    --text-dark: #051F20;
+    --background-dark: #051F20;
+    --background-medium: #0B2B26;
+    --card-bg: #163832;
+    --hover-color: #235347;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #e0e0e0;
+    background: #1a1a1a;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium-dark) 50%, var(--primary-medium) 100%);
+    color: var(--text-light);
+    padding: 1rem 0;
+    box-shadow: 0 4px 20px rgba(5, 31, 32, 0.8);
+    border-bottom: 2px solid var(--accent-green);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--accent-green);
+    text-shadow: 0 0 10px rgba(142, 182, 155, 0.5);
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    color: var(--accent-light);
+    text-shadow: 0 0 15px rgba(218, 255, 222, 0.7);
+}
+
+.logo img {
+    height: 50px; 
+    width: auto; 
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.nav {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav a img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(85%) sepia(8%) saturate(1058%) hue-rotate(84deg) brightness(103%) contrast(91%);
+    transition: all 0.3s ease;
+}
+
+.nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+    transition: left 0.5s;
+}
+
+.nav a:hover::before {
+    left: 100%;
+}
+
+.nav a:hover {
+    background: var(--hover-color);
+    border-color: var(--accent-green);
+    color: var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(142, 182, 155, 0.3);
+}
+
+.nav a:hover img {
+    filter: brightness(0) saturate(100%) invert(89%) sepia(15%) saturate(1058%) hue-rotate(84deg) brightness(103%) contrast(91%);
+    transform: scale(1.1);
+}
+
+
+.main {
+    min-height: calc(100vh - 140px);
+    padding: 2rem 0;
+}
+
+/* Cards */
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.card {
+    background: #2d2d2d;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    flex: 1 1 300px;
+    max-width: 350px;
+    cursor: pointer;
+    border: 1px solid #404040;
+    position: relative;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-green), var(--accent-light), var(--accent-green));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(5, 31, 32, 0.8);
+    border-color: var(--accent-green);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(45deg, var(--primary-medium) 0%, var(--hover-color) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--accent-green);
+    text-shadow: 0 0 10px rgba(142, 182, 155, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, transparent 30%, rgba(5, 31, 32, 0.3) 70%);
+}
+
+.card-content {
+    padding: 1.5rem;
+    background: #2d2d2d;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+    text-shadow: none;
+}
+
+.card-description {
+    color: #b0b0b0;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.card-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-green);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 8px rgba(142, 182, 155, 0.4);
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent-green) 0%, var(--primary-light) 100%);
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(142, 182, 155, 0.4);
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent-green) 100%);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--primary-medium) 0%, var(--hover-color) 100%);
+    border: 1px solid var(--accent-green);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, var(--hover-color) 0%, var(--primary-medium) 100%);
+    box-shadow: 0 8px 25px rgba(35, 83, 71, 0.4);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--accent-green) 0%, #4CAF50 100%);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #4CAF50 0%, var(--accent-green) 100%);
+}
