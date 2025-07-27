@@ -1,0 +1,222 @@
+/* Estilos para o Sistema de Carrinho - GameStore */
+
+/* Notificações do carrinho */
+.cart-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #235347;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    animation: slideIn 0.3s ease-out;
+    font-weight: 500;
+}
+
+/* Animações para notificações */
+@keyframes slideIn {
+    from { 
+        transform: translateX(100%); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translateX(0); 
+        opacity: 1; 
+    }
+}
+
+@keyframes slideOut {
+    from { 
+        transform: translateX(0); 
+        opacity: 1; 
+    }
+    to { 
+        transform: translateX(100%); 
+        opacity: 0; 
+    }
+}
+
+/* Botões de quantidade no carrinho */
+.quantity-btn {
+    background: #235347;
+    border: none;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.quantity-btn:hover {
+    background: #2a6b5a;
+}
+
+.quantity-btn:active {
+    background: #1e4a3f;
+}
+
+/* Input de quantidade */
+.quantity-input {
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #404040;
+    background: #2a2a2a;
+    color: white;
+    border-radius: 3px;
+}
+
+.quantity-input:focus {
+    outline: none;
+    border-color: #235347;
+}
+
+/* Container de controles de quantidade */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* Botão de remover item */
+.remove-btn {
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    padding: 2px 0;
+    transition: color 0.2s;
+}
+
+.remove-btn:hover {
+    color: #ff5252;
+    text-decoration: underline;
+}
+
+/* Estilo para carrinho vazio */
+.empty-cart {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+
+.empty-cart p:first-child {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+/* Ícone do produto no carrinho */
+.product-icon {
+    background: #235347;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 1.2rem;
+}
+
+/* Container do produto no carrinho */
+.cart-product {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Estilos para tabela do carrinho */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart-table th {
+    text-align: left;
+    padding: 10px 0;
+    border-bottom: 1px solid #404040;
+}
+
+.cart-table th:nth-child(2),
+.cart-table th:nth-child(3) {
+    text-align: center;
+}
+
+.cart-table th:nth-child(4) {
+    text-align: right;
+}
+
+.cart-table td {
+    padding: 15px 0;
+    border-bottom: 1px solid #404040;
+}
+
+.cart-table td:nth-child(2),
+.cart-table td:nth-child(3) {
+    text-align: center;
+}
+
+.cart-table td:nth-child(4) {
+    text-align: right;
+}
+
+/* Área de total e ações */
+.cart-footer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-total {
+    text-align: right;
+}
+
+.cart-total-amount {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    .cart-notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+    }
+    
+    .cart-footer {
+        flex-direction: column;
+        gap: 20px;
+        align-items: stretch;
+    }
+    
+    .cart-total {
+        text-align: center;
+    }
+    
+    .quantity-controls {
+        flex-wrap: wrap;
+    }
+    
+    .cart-table {
+        font-size: 0.9rem;
+    }
+    
+    .cart-product {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
