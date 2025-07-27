@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - GameStore</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="logo"><img src="img/logo/Logo.png" alt="GameZone Logo">GameStore</a>
+        <div class="nav">
+          <a href="index.html">Início</a>
+          <a href="login.html"><img src="img/icones/log.webp">Login</a>
+          <a href="cadastro.html"><img src="img/icones/user.svg" alt="Ícone de Usuário"> Cadastro</a>
+          <a href="carrinho.html"><img src="img/icones/cart.svg" alt="Ícone de Carrinho"> Carrinho (<span id="cart-count">0</span>)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="container">
+      <div class="cadastro-container fade-in">
+        <div class="cadastro-header">
+          <h1>Login</h1>
+        </div>
+
+        <div class="cadastro-form">
+          <form id="login-form" onsubmit="return validarLogin(event)">
+            <div class="form-group">
+              <label for="email">E-mail <span class="required">*</span></label>
+              <input type="text" id="email" name="email" placeholder="seu@email.com">
+              <div class="error-message" id="email-error"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="senha">Senha <span class="required">*</span></label>
+              <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
+              <div class="error-message" id="senha-error"></div>
+            </div>
+
+            <div class="form-button-wrapper">
+              <button type="submit" class="btn btn-success gamer-submit-button">Entrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/cart-system.js"></script>
+  <script src="js/login-validation.js"></script>
+</body>
+</html>
