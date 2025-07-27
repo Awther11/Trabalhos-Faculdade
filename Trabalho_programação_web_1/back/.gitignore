@@ -1,1 +1,6 @@
 .env
+.vscode
+config.py
+requirements.txt
+app.py
+models.py
