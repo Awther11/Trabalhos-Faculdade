@@ -157,28 +157,90 @@ def cadastra():
         print(f"Erro ao cadastrar usuário: {e}")
         return jsonify({"mensagem": "Erro interno ao cadastrar usuário. Tente novamente mais tarde."}), 500
 
+# @app.route('/login', methods=['POST'])
+# def fazer_login():
+#     dados = request.get_json()
+#     identificador = dados.get('identificador') # Pode ser email ou CPF
+#     senha = dados.get('senha')
+
+#     if not identificador or not senha:
+#         return jsonify({"mensagem": "Identificador (e-mail ou CPF) e senha são obrigatórios"}), 400
+
+#     usuario = None
+   
+#     if '@' in identificador:
+#         usuario = Cad_Usuario.query.filter_by(email=identificador).first()
+    
+#     if not usuario and identificador.isdigit() and len(identificador) == 11:
+#         usuario = Cad_Usuario.query.filter_by(cpf=identificador).first()
+
+#     if usuario and usuario.verificar_senha(senha):
+#         token_acesso = create_access_token(identity=usuario.id)
+#         return jsonify(token_acesso=token_acesso, usuario=usuario.to_dict()), 200
+#     else:
+#         return jsonify({"mensagem": "Credenciais inválidas"}), 401
+
+
+
 @app.route('/login', methods=['POST'])
 def fazer_login():
     dados = request.get_json()
-    identificador = dados.get('identificador') # Pode ser email ou CPF
+    if not dados:
+        return jsonify({"mensagem": "Nenhum dado enviado"}), 400
+
+    identificador = dados.get('identificador')
     senha = dados.get('senha')
 
     if not identificador or not senha:
         return jsonify({"mensagem": "Identificador (e-mail ou CPF) e senha são obrigatórios"}), 400
 
     usuario = None
-    # Tenta encontrar o usuário por e-mail
-    if '@' in identificador:
-        usuario = Cad_Usuario.query.filter_by(email=identificador).first()
-    # Se não for e-mail ou não encontrado, tenta por CPF
-    if not usuario and identificador.isdigit() and len(identificador) == 11:
-        usuario = Cad_Usuario.query.filter_by(cpf=identificador).first()
 
+    # Verifica se o identificador parece ser um email
+    if '@' in identificador:
+        usuario = Cad_Usuario.query.filter_by(email=identificador.strip()).first()
+
+    # Se não encontrado, tenta pelo CPF (número com 11 dígitos)
+    if not usuario and identificador.isdigit() and len(identificador) == 11:
+        usuario = Cad_Usuario.query.filter_by(cpf=identificador.strip()).first()
+
+    # Se usuário encontrado, verifica a senha
     if usuario and usuario.verificar_senha(senha):
         token_acesso = create_access_token(identity=usuario.id)
         return jsonify(token_acesso=token_acesso, usuario=usuario.to_dict()), 200
     else:
         return jsonify({"mensagem": "Credenciais inválidas"}), 401
+
+
+
+# @app.route('/login', methods=['POST'])
+# def fazer_login():
+#     dados = request.get_json()
+#     identificador = dados.get('identificador')  # email ou CPF
+#     senha = dados.get('senha')
+
+#     if not identificador or not senha:
+#         return jsonify({"mensagem": "Identificador e senha são obrigatórios"}), 400
+
+#     usuario = None
+
+#     if '@' in identificador:
+#         usuario = Cad_Usuario.query.filter_by(email=identificador).first()
+#     elif identificador.isdigit() and len(identificador) == 11:
+#         usuario = Cad_Usuario.query.filter_by(cpf=identificador).first()
+
+#     if usuario and usuario.verificar_senha(senha):
+#         token = create_access_token(identity=usuario.id)
+#         return jsonify({
+#             "token_acesso": token,
+#             "usuario": usuario.to_dict()
+#         }), 200
+#     else:
+#         return jsonify({"mensagem": "Credenciais inválidas"}), 401
+
+
+
+
 
 @app.route('/perfil', methods=['GET'])
 @jwt_required()
