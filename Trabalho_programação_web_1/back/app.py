@@ -239,20 +239,105 @@ def fazer_login():
 #         return jsonify({"mensagem": "Credenciais inválidas"}), 401
 
 
+class Produto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    descricao = db.Column(db.String(500), nullable=True)
+    preco = db.Column(db.Float, nullable=False)
+    imagem_url = db.Column(db.String(255), nullable=False)
+    estoque = db.Column(db.Integer, default=0)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "nome": self.nome,
+            "descricao": self.descricao,
+            "preco": self.preco,
+            "imagem_url": self.imagem_url,
+            "estoque": self.estoque
+        }
+
+
+@app.route('/produto', methods=['POST'])
+def cadastrar_produto():
+    data = request.json
+
+    campos_obrigatorios = ["nome", "preco", "imagem_url"]
+
+    for campo in campos_obrigatorios:
+        if not data.get(campo):
+            return jsonify({"mensagem": f"O campo '{campo}' é obrigatório."}), 400
+
+    try:
+        produto = Produto(
+            nome=data["nome"].strip(),
+            descricao=data.get("descricao", "").strip(),
+            preco=float(data["preco"]),
+            imagem_url=data["imagem_url"].strip(),
+            estoque=int(data.get("estoque", 0))
+        )
+
+        db.session.add(produto)
+        db.session.commit()
+
+        return jsonify({"mensagem": "Produto cadastrado com sucesso!", "produto": produto.to_dict()}), 201
+
+    except Exception as e:
+        db.session.rollback()
+        print(f"Erro ao cadastrar produto: {e}")
+        return jsonify({"mensagem": "Erro interno ao cadastrar produto."}), 500
 
 
 
-@app.route('/perfil', methods=['GET'])
-@jwt_required()
-def obter_perfil():
-    # Obtém o ID do usuário a partir do token JWT
-    id_usuario_atual = get_jwt_identity()
-    usuario = Cad_Usuario.query.get(id_usuario_atual)
 
-    if not usuario:
-        return jsonify({"mensagem": "Usuário não encontrado."}), 404
-    
-    return jsonify(usuario.to_dict()), 200
+
+class Categoria(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False, unique=True)
+    descricao = db.Column(db.String(255), nullable=True)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "nome": self.nome,
+            "descricao": self.descricao
+        }
+@app.route('/categoria', methods=['POST'])
+def cadastrar_categoria():
+    data = request.json
+
+    if not data.get('nome'):
+        return jsonify({"mensagem": "O campo 'nome' é obrigatório."}), 400
+
+    nome = data['nome'].strip()
+    descricao = data.get('descricao', '').strip()
+
+    if Categoria.query.filter_by(nome=nome).first():
+        return jsonify({"mensagem": "Essa categoria já existe."}), 409
+
+    try:
+        nova_categoria = Categoria(nome=nome, descricao=descricao)
+        db.session.add(nova_categoria)
+        db.session.commit()
+
+        return jsonify({"mensagem": "Categoria cadastrada com sucesso!", "categoria": nova_categoria.to_dict()}), 201
+
+    except Exception as e:
+        db.session.rollback()
+        print(f"Erro ao cadastrar categoria: {e}")
+        return jsonify({"mensagem": "Erro interno ao cadastrar categoria."}), 500
+
+
+@app.route('/produto/<int:id>', methods=['GET'])
+def obter_detalhes_produto(id):
+    produto = Produto.query.get(id)
+
+    if not produto:
+        return jsonify({"mensagem": "Produto não encontrado."}), 404
+
+    return jsonify(produto.to_dict()), 200
+
+
 
 # --- Inicialização do Aplicativo ---
 if __name__ == '__main__':
